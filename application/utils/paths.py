@@ -42,6 +42,7 @@ def get_filename_and_fullpath(file_or_filepath: str):
 
     # Extract the filename from the full path
     filename = full_path.name
+    x = full_path.suffixes
 
     # Check if the file exists
     if full_path.exists():

@@ -4,7 +4,9 @@ from application.utils.paths import get_filename_and_fullpath # Filename_Path_Co
 from pathlib import Path
 from application.operations.inspector import Inspector
 from application.operations.director import Director
-from application.modules.temp import _has_multiple_FileExtensions
+from application.operations.reporter import Reporter
+from typing import List
+
 
 def main(filename_to_check: str):
     
@@ -12,21 +14,21 @@ def main(filename_to_check: str):
 
     director = Director()
     
-    #FilePathControl = Filename_Path_Controller(filename, full_filepath)
+    reporter = Reporter()
     inspector = Inspector(filename, full_filepath)
     
-    inspector.runChecks()
+    director.reporter = reporter
+    director.inspector = inspector
     
-    #director.inspector = inspector
-    #director.reporter = reporter
+    alerts_result = list(director.inspector.runChecks()) or []
+    if isinstance(alerts_result, list):
+        print(alerts_result)
+        director.reporter.addAlerts("filechecks", list(alerts_result))
     
-    #director.inspector.runChecks()
+    print(f"amt_fileExt: {len(director.inspector.targetFileExts)}")
+    print(f"file extensions: {director.inspector.targetFileExts}")
     
-
-    #FilePathControl.get_Path_CWD()
-    #FilePathControl.filename_full_path()
-    #FilePathControl.has_multiple_FileExtensions()
-    #inspector._has_multiple_FileExtensions()
+    #print(director.reporter.Suspect_Findings_Log)
 
 
 if __name__ == "__main__":

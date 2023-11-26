@@ -9,8 +9,6 @@ class Director:
         
         
         
-        
-        
         #self.allreportlogs = get from reporter
         pass
 
