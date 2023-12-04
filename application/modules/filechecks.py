@@ -33,8 +33,19 @@ def _is_iso_ext(self):
         return Status.Info
 
 def _is_archived(self):
+    targetFileExtsLower = [fileExt.lower() for fileExt in self.targetFileExts]
+    #print(targetFileExtsLower)
+    matches = [item for item in targetFileExtsLower if item in ARCHIVE_EXT]
+
+    if matches:
+        print(f"Found Matching Archive Extensions: {matches}")
+        return Status.Info
+    else:
+        return None
+
+#def _is_archived(self):
     #if 
-    pass
+    #pass
 
 def _is_openxml_archive(self):
     pass
